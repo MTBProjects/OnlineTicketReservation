@@ -1,0 +1,436 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta content="telephone=no" name="format-detection"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
+        <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="css/default.css"/>
+        <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+        <link href="css/style_1.css?v=1" rel="stylesheet" />
+        <link href="css/gozha-nav.css" rel="stylesheet" />
+        <link href="css/idangerous.swiper.css" rel="stylesheet" />
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src='js/example.js'></script>
+        <script src="js/external/modernizr.custom.js"></script>
+    </h:head>
+    <h:body>
+        <div class="header">
+            <div class="block">
+                <div class="wrap">
+                    <div class="h-logo">
+                        <a href="main.xhtml"><img src="images/logo.png" alt=""/></a>
+                    </div>
+                    <div id="reservation-form">
+                        <c:choose>
+                            <c:when test="${loginSessionBean.isLoggedIn == true}">
+                                <h:form class="group" >
+                                    <h:outputLabel style="font-size: medium;" class="label" value="#{loginSessionBean.email}"/>
+                                    <h:commandButton style="padding-left: 90px;" class="btn-link" value="Logout" action="#{loginSessionBean.endSession()}"/>
+                                </h:form>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="login.xhtml" style="font-size: 20px;" class="btn-link">Login</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="header-top">
+                <div class="wrap">
+                    <div class="nav-wrap">
+                        <ul class="group" id="example-one">
+                            <li><a href="main.xhtml">Home</a></li>
+                            <li><a href="comingsoon_list.xhtml">Coming Soon</a></li>
+                            <li><a href="movie_list.xhtml">Showing</a></li>
+                            <li><a href="event_list.xhtml">Event </a></li>
+                            <li class="current_page_item"><a href="choose_movie.xhtml">Booking</a></li>
+                            <li><a href="register.xhtml">Register</a></li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrapper place-wrapper">
+            <div class="place-form-area">
+                <section class="container">
+                    <div class="order-step-area">
+                        <h2 class="page-heading heading--outcontainer">Choose a sit</h2>
+                    </div>
+                    <div class="choose-sits">
+                        <div class="choose-sits__info choose-sits__info--first">
+                            <ul>
+                                <li class="sits-price marker--none"><strong>Price</strong></li>
+                                <li class="sits-price sits-price--cheap">$10</li>
+                                <li class="sits-price sits-price--middle">$20</li>
+                                <li class="sits-price sits-price--expensive">$30</li>
+                            </ul>
+                        </div>
+
+                        <div class="choose-sits__info">
+                            <ul>
+                                <li class="sits-state sits-state--not">Not available</li>
+                                <li class="sits-state sits-state--your">Your choice</li>
+                            </ul>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-10 col-lg-offset-1">
+                            <div class="sits-area hidden-xs">
+                                <div class="sits-anchor">screen</div>
+
+                                <div class="sits">
+                                    <aside class="sits__line">
+                                        <ul>
+                                            <li class="sits__indecator">A</li>
+                                            <li class="sits__indecator">B</li>
+                                            <li class="sits__indecator">C</li>
+                                            <li class="sits__indecator">D</li>
+                                            <li class="sits__indecator">E</li>
+                                            <li class="sits__indecator">F</li>
+                                            <li class="sits__indecator">G</li>
+                                            <li class="sits__indecator">I</li>
+                                            <li class="sits__indecator">J</li>
+                                            <li class="sits__indecator">K</li>
+                                            <li class="sits__indecator">L</li>
+                                        </ul>
+                                    </aside>
+
+                                    <div class="sits__row">
+                                        <c:forEach items="#{seatManagedBean.getsA()}" var="seat" >
+                                            <c:set var="stt" value="#{seat.status}"/>
+                                            <c:choose>
+                                                <c:when test="${seat.status==1}"> 
+                                                    <span class="sits__place sits-price--cheap sits-state--not" data-place='#{seat.name}' data-price='10'>#{seat.name}</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="sits__place sits-price--cheap" data-place='#{seat.name}' data-price='10'>#{seat.name}</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </div>
+
+                                    <div class="sits__row">
+                                        <c:forEach items="#{seatManagedBean.getsB()}" var="seat" >
+                                            <c:set var="stt" value="#{seat.status}"/>
+                                            <c:choose>
+                                                <c:when test="${seat.status==1}"> 
+                                                    <span class="sits__place sits-price--cheap sits-state--not" data-place='#{seat.name}' data-price='10'>#{seat.name}</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="sits__place sits-price--cheap" data-place='#{seat.name}' data-price='10'>#{seat.name}</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </div>
+
+                                    <div class="sits__row">
+                                        <c:forEach items="#{seatManagedBean.getsC()}" var="seat" >
+                                            <c:set var="stt" value="#{seat.status}"/>
+                                            <c:choose>
+                                                <c:when test="${seat.status==1}"> 
+                                                    <span class="sits__place sits-price--cheap sits-state--not" data-place='#{seat.name}' data-price='10'>#{seat.name}</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="sits__place sits-price--cheap" data-place='#{seat.name}' data-price='10'>#{seat.name}</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </div>
+
+                                    <div class="sits__row">
+                                        <c:forEach items="#{seatManagedBean.getsD()}" var="seat" >
+                                            <c:set var="stt" value="#{seat.status}"/>
+                                            <c:choose>
+                                                <c:when test="${seat.status==1}"> 
+                                                    <span class="sits__place sits-price--cheap sits-state--not" data-place='#{seat.name}' data-price='10'>#{seat.name}</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="sits__place sits-price--cheap" data-place='#{seat.name}' data-price='10'>#{seat.name}</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </div>
+
+                                    <div class="sits__row">
+                                        <c:forEach items="#{seatManagedBean.getsE()}" var="seat" >
+                                            <c:set var="stt" value="#{seat.status}"/>
+                                            <c:choose>
+                                                <c:when test="${seat.status==1}"> 
+                                                    <span class="sits__place sits-price--middle sits-state--not" data-place='#{seat.name}' data-price='20'>#{seat.name}</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="sits__place sits-price--middle" data-place='#{seat.name}' data-price='20'>#{seat.name}</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </div>
+
+                                    <div class="sits__row">
+                                        <c:forEach items="#{seatManagedBean.getsF()}" var="seat" >
+                                            <c:set var="stt" value="#{seat.status}"/>
+                                            <c:choose>
+                                                <c:when test="${seat.status==1}"> 
+                                                    <span class="sits__place sits-price--middle sits-state--not" data-place='#{seat.name}' data-price='20'>#{seat.name}</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="sits__place sits-price--middle" data-place='#{seat.name}' data-price='20'>#{seat.name}</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </div>
+
+                                    <div class="sits__row">
+                                        <c:forEach items="#{seatManagedBean.getsG()}" var="seat" >
+                                            <c:set var="stt" value="#{seat.status}"/>
+                                            <c:choose>
+                                                <c:when test="${seat.status==1}"> 
+                                                    <span class="sits__place sits-price--middle sits-state--not" data-place='#{seat.name}' data-price='20'>#{seat.name}</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="sits__place sits-price--middle" data-place='#{seat.name}' data-price='20'>#{seat.name}</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </div>
+
+                                    <div class="sits__row">
+                                        <c:forEach items="#{seatManagedBean.getsI()}" var="seat" >
+                                            <c:set var="stt" value="#{seat.status}"/>
+                                            <c:choose>
+                                                <c:when test="${seat.status==1}"> 
+                                                    <span class="sits__place sits-price--middle sits-state--not" data-place='#{seat.name}' data-price='20'>#{seat.name}</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="sits__place sits-price--middle" data-place='#{seat.name}' data-price='20'>#{seat.name}</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </div>
+
+                                    <div class="sits__row">
+                                        <c:forEach items="#{seatManagedBean.getsJ()}" var="seat" >
+                                            <c:set var="stt" value="#{seat.status}"/>
+                                            <c:choose>
+                                                <c:when test="${seat.status==1}"> 
+                                                    <span class="sits__place sits-price--expensive sits-state--not" data-place='#{seat.name}' data-price='30'>#{seat.name}</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="sits__place sits-price--expensive" data-place='#{seat.name}' data-price='30'>#{seat.name}</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </div>
+
+                                    <div class="sits__row">
+                                        <c:forEach items="#{seatManagedBean.getsK()}" var="seat" >
+                                            <c:set var="stt" value="#{seat.status}"/>
+                                            <c:choose>
+                                                <c:when test="${seat.status==1}"> 
+                                                    <span class="sits__place sits-price--expensive sits-state--not" data-place='#{seat.name}' data-price='30'>#{seat.name}</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="sits__place sits-price--expensive" data-place='#{seat.name}' data-price='30'>#{seat.name}</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </div>
+
+                                    <div class="sits__row">
+                                        <c:forEach items="#{seatManagedBean.getsL()}" var="seat" >
+                                            <c:set var="stt" value="#{seat.status}"/>
+                                            <c:choose>
+                                                <c:when test="${seat.status==1}"> 
+                                                    <span class="sits__place sits-price--expensive sits-state--not" data-place='#{seat.name}' data-price='30'>#{seat.name}</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="sits__place sits-price--expensive" data-place='#{seat.name}' data-price='30'>#{seat.name}</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </div>
+
+                                    <aside class="sits__checked">
+                                        <div class="checked-place">
+
+                                        </div>
+                                        <div class="checked-result">
+                                            $0
+                                        </div>
+                                    </aside>
+                                    <footer class="sits__number">
+                                        <span class="sits__indecator">1</span>
+                                        <span class="sits__indecator">2</span>
+                                        <span class="sits__indecator">3</span>
+                                        <span class="sits__indecator">4</span>
+                                        <span class="sits__indecator">5</span>
+                                        <span class="sits__indecator">6</span>
+                                        <span class="sits__indecator">7</span>
+                                        <span class="sits__indecator">8</span>
+                                        <span class="sits__indecator">9</span>
+                                        <span class="sits__indecator">10</span>
+                                        <span class="sits__indecator">11</span>
+                                        <span class="sits__indecator">12</span>
+                                        <span class="sits__indecator">13</span>
+                                        <span class="sits__indecator">14</span>
+                                        <span class="sits__indecator">15</span>
+                                        <span class="sits__indecator">16</span>
+                                    </footer>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 visible-xs"> 
+                            <div class="sits-area--mobile">
+                                <div class="sits-area--mobile-wrap">
+                                    <div class="sits-select">
+                                        <select name="sorting_item" class="sits__sort sit-row" tabindex="0">
+                                            <option value="1" selected='selected'>A</option>
+                                            <option value="2">B</option>
+                                            <option value="3">C</option>
+                                            <option value="4">D</option>
+                                            <option value="5">E</option>
+                                            <option value="6">F</option>
+                                            <option value="7">G</option>
+                                            <option value="8">I</option>
+                                            <option value="9">J</option>
+                                            <option value="10">K</option>
+                                            <option value="11">L</option>
+                                        </select>
+
+                                        <select name="sorting_item" class="sits__sort sit-number" tabindex="1">
+                                            <option value="1" selected='selected'>1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                        </select>
+
+                                        <a href="#" class="btn btn-md btn--warning toogle-sits">Choose sit</a>
+                                    </div>
+                                </div>
+
+                                <a href="#" class="watchlist add-sits-line">Add new sit</a>
+
+                                <aside class="sits__checked">
+                                    <div class="checked-place">
+                                        <span class="choosen-place" id="seat"></span>
+                                    </div>
+                                    <div class="checked-result">
+                                        $0
+                                    </div>
+                                </aside>
+                            </div>
+                        </div> 
+                        <button value="Test"></button>
+                    </div>
+                </section>
+                <div class="clearfix"></div>
+                <h:form id="film-and-time" >
+                    <input type="hidden" name='choosen-number' class="choosen-number" id="choosen-number"/>
+                    <input type="hidden" name='choosen-number--cheap' class="choosen-number--cheap" id="choosen-number--cheap"/>
+                    <input type="hidden" name='choosen-number--middle' class="choosen-number--middle" id="choosen-number--middle"/>
+                    <input type="hidden" name='choosen-number--expansive' class="choosen-number--expansive" id="choosen-number--expansive"/>
+                    <input type="hidden" name='choosen-cost' class="choosen-cost" id="choosen-cost"/>
+                    <input type="hidden" name='choosen-sits' class="choosen-sits" id="choosen-sits"/>
+                    <div class="booking-pagination booking-pagination--margin">
+                        <h:commandButton class="btn btn-md btn--warning btn--wide" value="Purchase" action="#{ticketBean.createTicket()}"/>
+                    </div>
+                </h:form>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="wrap">
+                <div class="footer-top">
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="footer-nav">
+                            <ul>
+                                <li><a href="comingsoon_list.xhtml">Coming Soon</a></li>
+                                <li><a href="movie_list.xhtml">Showing</a></li>
+                                <li><a href="event_list.html">Event </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="textcontact">
+                            <p>consectetuer adipiscing elit,<br/>
+                                Phone: +84 18001991.<br/>
+                                Email: Support (at) Support@Theater.com<br/>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="call_info">
+                            <p class="txt_3">Call us (Free):</p>
+                            <p class="txt_4">18001991</p>
+                        </div>
+                    </div>
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="social">
+                            <a href="#"><img src="images/fb.png" alt=""/></a>
+                            <a href="#"><img src="images/tw.png" alt=""/></a>
+                            <a href="#"><img src="images/dribble.png" alt=""/></a>
+                            <a href="#"><img src="images/pinterest.png" alt=""/></a>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <!-- Migrate --> 
+        <script src="js/external/jquery-migrate-1.2.1.min.js"></script>
+        <!-- jQuery UI -->
+        <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <!-- Bootstrap 3--> 
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+
+        <!-- Mobile menu -->
+        <script src="js/external/jquery.mobile.menu.js"></script>
+        <!-- Select -->
+        <script src="js/external/jquery.selectbox-0.2.min.js"></script>
+        <!-- Swiper slider -->
+        <script src="js/external/idangerous.swiper.min.js"></script>
+
+        <!-- Form element -->
+        <script src="js/external/form-element.js"></script>
+        <!-- Form validation -->
+        <script src="js/external/form.js"></script>
+
+        <!-- Custom -->
+        <script src="js/external/custom.js"></script>
+
+        <script type="text/javascript">
+                            $(document).ready(function () {
+                                init_BookingTwo();
+                            });
+        </script>
+    </h:body>
+</html>
+

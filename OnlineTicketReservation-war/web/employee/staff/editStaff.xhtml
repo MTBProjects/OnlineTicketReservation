@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="description" content="Miminium Admin Template v.1"/>
+        <meta name="author" content="Isna Nur Azis"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" type="text/css" href="#{mainBean.contextPath}/employee/asset/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="#{mainBean.contextPath}/employee/asset/css/plugins/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="#{mainBean.contextPath}/employee/asset/css/plugins/datatables.bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="#{mainBean.contextPath}/employee/asset/css/plugins/animate.min.css"/>
+        <link href="#{mainBean.contextPath}/employee/asset/css/style.css" rel="stylesheet"/>
+        <link rel="shortcut icon" href="#{mainBean.contextPath}/employee/asset/img/logomi.png"/>
+    </h:head>
+    <h:body id="mimin" class="dashboard">
+        <!-- start: Header -->
+        <nav class="navbar navbar-default header navbar-fixed-top">
+            <div class="col-md-12 nav-wrapper">
+                <div class="navbar-header" style="width:100%;">
+                    <a href="index.xhtml" class="navbar-brand"> 
+                        <b>ADMIN MANAGEMENT</b>
+                    </a>
+                    <h:form >
+                        <ul class="nav navbar-nav navbar-right user-nav">
+                            <li> 
+                                <h:commandLink value="LOG OUT" 
+                                               action="#{sessionBean.logout()}"/>
+                            </li>
+                        </ul>
+                    </h:form>
+                </div>
+            </div>
+        </nav>
+        <!-- end: Header -->
+
+        <div class="container-fluid mimin-wrapper">
+
+            <!-- start:Left Menu -->
+            <div id="left-menu">
+                <div class="sub-left-menu scroll">
+                    <ul class="nav nav-list">
+                        <li><div class="left-bg"></div></li>
+
+                        <li class="user-name text-center">
+                            <span> 
+                                #{sessionBean.accountData.fullname}
+                            </span>
+                        </li>
+                        <li class="active ripple">
+                            <a href="#{mainBean.contextPath}/employee/indexAdminManagement.xhtml"> Main 
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="#{mainBean.contextPath}/employee/staff/mainStaff.xhtml"> Staffs  
+                                <span class="fa-angle-right fa right-arrow text-right"></span> 
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>  
+            <!-- end: Left Menu -->
+
+            <!-- start: Content -->
+            <div id="content">
+                <div class="panel box-shadow-none content-header">
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <h3 class="animated fadeInLeft">Staff Tables</h3>
+                            <p class="animated fadeInDown">
+                                Main <span class="fa-angle-right fa"></span> 
+                                Edit Staff
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel" style="background-color: transparent">
+                    <h:form id="EditForm" > 
+                        <h:panelGroup id="display"  >
+                            <h:inputHidden id="accID" value="#{accBean.entity.accountId}"  />
+                            <h:panelGrid columns="3" rendered="#{accBean.entity != null}">
+                                <p:outputLabel for="username" value="Username: " />
+                                <p:inputText id="username" value="#{accBean.storeUsername}"
+                                             readonly="true"/>
+                                <h:inputHidden value="#{accBean.entity.username}" />
+
+                                <p:outputLabel for="accPass" value="Password: " />
+                                <p:password id="accPass" value="#{accBean.entity.password}" 
+                                            size="50" required="true" redisplay="true"
+                                            requiredMessage="This field should not empty"/>
+                                <p:message for="accPass" style="color: red;" />
+
+                                <p:outputLabel for="fullname" value="Full name: " />
+                                <p:inputText id="fullname" value="#{accBean.entity.fullname}" 
+                                             size="50" required="true" 
+                                             requiredMessage="This field should not empty"/>
+                                <p:message for="fullname" style="color: red;" />
+
+                                <p:outputLabel for="genre" value="Genre: " />
+                                <h:panelGrid columns="2" >
+                                    <h:selectOneRadio id="genre" value="#{accBean.entity.genre}"
+                                                      required="true"
+                                                      requiredMessage="Genre is mandatory">
+                                        <f:selectItem itemLabel="Male" itemValue="Male" />
+                                        <f:selectItem itemLabel="Female" itemValue="Female" />
+                                    </h:selectOneRadio>
+                                </h:panelGrid>
+                                <p:message for="genre" style="color: red;" />
+
+                                <p:outputLabel for="email" value="Email " />
+                                <p:inputText id="email" value="#{accBean.entity.email}" size="30"
+                                             style="height: 40px"
+                                             required="true" 
+                                             requiredMessage="This field should not empty"/>
+                                <p:message for="email" style="color: red;" />
+
+
+                                <p:outputLabel for="address" value="Address: " />
+                                <p:inputText id="address" value="#{accBean.entity.address}" 
+                                             size="50" required="true"
+                                             requiredMessage="This field should not empty"/>
+                                <p:message for="address" style="color: red;" />
+
+
+                                <p:outputLabel for="phone" value="Phone: "  />
+                                <p:inputText id="phone" maxlength="11"
+                                             value="#{accBean.entity.phone}" size="20" 
+                                             required="true"
+                                             requiredMessage="This field should not empty">
+                                    <f:validateRegex pattern="[0-9]*" />
+                                </p:inputText>
+                                <p:message for="phone" style="color: red;" />
+
+                                <p:outputLabel for="dob" value="Birthday: " />
+                                <p:calendar id="dob" pattern="yyyy-MM-dd" yearRange="1900:2100"
+                                            value="#{accBean.entity.dob}" navigator="true" required="true"
+                                            requiredMessage="This field should not empty" />
+                                <p:message for="dob" style="color: red;" />
+
+
+                                <!--<p:outputLabel for="lastDate" value="Last date: " />-->
+                                <h:inputHidden id="lastDate" 
+                                               value="#{accBean.entity.lastDay}" >
+                                    <f:convertDateTime pattern="yyyy-MM-dd"/>
+                                </h:inputHidden>
+                                <!--<p:message for="lastDate" style="color: red;" />-->
+
+                                <p:outputLabel for="status" value="Status: " />
+                                <h:panelGrid columns="2" >
+                                    <h:selectOneRadio id="status" value="#{accBean.entity.status}"
+                                                      required="true"
+                                                      requiredMessage="Please choose status">
+                                        <f:selectItem itemLabel="Actived" itemValue="Actived" />
+                                        <f:selectItem itemLabel="Banned" itemValue="Banned" />
+                                    </h:selectOneRadio>
+                                </h:panelGrid>
+                                <p:message for="status" style="color: red;" />
+
+                                <h:outputLabel for="role" value="Role: " />
+                                <h:selectOneMenu id="role" value="#{accBean.entity.roleId}" 
+                                                 converter="roleConverter" >
+                                    <f:selectItems value="#{roleBean.allRole}"  
+                                                   var="roleItem" 
+                                                   itemLabel="#{roleItem.roleType}"
+                                                   itemValue="#{roleItem}"/>
+                                </h:selectOneMenu>
+                                <p:message for="role" style="color: red;" />
+
+                            </h:panelGrid>
+                        </h:panelGroup>
+                        <h:panelGroup> 
+                            <h:panelGrid columns="2">
+                                <h:commandButton
+                                    action= "#{accBean.updateAccount()}" 
+                                    class="btn btn-primary"
+                                    value="Update"/>
+
+                                <a class="btn btn-primary" 
+                                   href="#{mainBean.contextPath}/employee/staff/mainStaff.xhtml">Cancel</a>
+                            </h:panelGrid>
+                        </h:panelGroup>
+                    </h:form>
+                </div>  
+            </div>
+            <!-- end: content -->
+        </div>
+
+        <!-- start: Javascript -->
+        <script src="#{mainBean.contextPath}/employee/asset/js/jquery.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/jquery.ui.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/bootstrap.min.js"></script>
+
+        <!-- plugins -->
+        <script src="#{mainBean.contextPath}/employee/asset/js/plugins/moment.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/plugins/jquery.datatables.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/plugins/datatables.bootstrap.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/plugins/jquery.nicescroll.js"></script>
+
+        <!-- custom -->
+        <script src="#{mainBean.contextPath}/employee/asset/js/main.js"></script>
+
+        <!--disable previous day-->
+
+        <!-- end: Javascript -->
+    </h:body>
+</html>

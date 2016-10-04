@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta content="telephone=no" name="format-detection"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css" media="screen"/>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" type="text/css" href="css/default.css"/>
+        <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+        <link href="css/gozha-nav.css" rel="stylesheet" />
+        <link href="css/idangerous.swiper.css" rel="stylesheet" />
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/external/modernizr.custom.js"></script>
+
+    </h:head>
+    <h:body>
+        <div class="header">
+            <div class="block">
+                <div class="wrap">
+                    <div class="h-logo">
+                        <a href="main.xhtml"><img src="images/logo.png" alt=""/></a>
+                    </div>
+                    <div id="reservation-form">
+                        <c:choose>
+                            <c:when test="${loginSessionBean.isLoggedIn == true}">
+                                <h:form class="group" >
+                                    <h:outputLabel style="font-size: medium;" class="label" value="#{loginSessionBean.email}"/>
+                                    <h:commandButton style="padding-left: 90px;" class="btn-link" value="Logout" action="#{loginSessionBean.endSession()}"/>
+                                </h:form>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="login.xhtml" style="font-size: 20px;" class="btn-link">Login</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="header-top">
+                <div class="wrap">
+                    <div class="nav-wrap">
+                        <ul class="group" id="example-one">
+                            <li><a href="main.xhtml">Home</a></li>
+                            <li><a href="comingsoon_list.xhtml">Coming Soon</a></li>
+                            <li><a href="movie_list.xhtml">Showing</a></li>
+                            <li><a href="event_list.xhtml">Event </a></li>
+                            <li><a href="choose_movie.xhtml">Booking</a></li>
+                            <li class="current_page_item"><a href="register.xhtml">Register</a></li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <section class="container">
+                <h2 class="page-heading heading--outcontainer ">Registration Form</h2>
+            </section>
+        </div>
+
+        <div class="container">
+            <h:form class="form-horizontal" id="register">
+                <div class="form-group">
+                    <h:outputLabel class="col-sm-3 control-label" for="custName" value="Customer name: " />
+                    <div class="col-sm-6">
+                        <h:inputText id="custName" value="#{customerManagedBean.entity.customerName}" 
+                                     class="form-control" required="true"
+                                     requiredMessage="This field should not empty"/>
+                        <h:message for="custName" style="color: red;" />
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <h:outputLabel class="col-sm-3 control-label" for="username" value="Username: " />
+                    <div class="col-sm-6">
+                        <h:inputText id="username" value="#{customerManagedBean.entity.email}" 
+                                     class="form-control" required="true" title="Email"
+                                     requiredMessage="This field should not empty" >
+                            <f:validator validatorId="emailValidator" />
+                        </h:inputText>
+                        <h:message for="username" style="color: red;" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel class="col-sm-3 control-label" for="pass" value="Password: " />
+                    <div class="col-sm-6">
+                        <h:inputSecret id="pass" value="#{customerManagedBean.entity.password}" size="30"
+                                       class="form-control" required="true"
+                                       requiredMessage="This field should not empty"/>
+                        <h:message for="pass" style="color: red;" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel class="col-sm-3 control-label" for="address" value="Address: " />
+                    <div class="col-sm-6">
+                        <h:inputText id="address" value="#{customerManagedBean.entity.address}" 
+                                     class="form-control" required="true"
+                                     requiredMessage="This field should not empty"/>
+                        <h:message for="address" style="color: red;" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel class="col-sm-3 control-label" for="phone" value="Phone: "  />
+                    <div class="col-sm-6">
+                        <h:inputText id="phone" maxlength="11"
+                                     value="#{customerManagedBean.entity.phone}"
+                                     required="true" class="form-control"
+                                     requiredMessage="This field should not empty">
+                            <f:validateRegex pattern="[0-9]*" />
+                        </h:inputText>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel class="col-sm-3 control-label" for="dob" value="Birthday: " />
+                    <div class="col-sm-6">
+                        <p:calendar id="dob" pattern="yyyy-MM-dd" yearRange="1900:2100" readonlyInput="true"
+                                    value="#{customerManagedBean.entity.dob}" navigator="true" required="true"
+                                    requiredMessage ="This field should not empty" />
+                        <h:message for="dob" style="color: red;" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h:outputLabel class="col-sm-3 control-label" for="passport" value="Passport: "  />
+                    <div class="col-sm-6">
+                        <h:inputText id="passport" 
+                                     value="#{customerManagedBean.entity.passport}" 
+                                     required="true" class="form-control"
+                                     requiredMessage="This field should not empty"/>
+                        <h:message for="passport" style="color: red;" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h:outputLabel class="col-sm-3 control-label" for="genre" value="Genre: " />
+                    <div class="col-sm-4">
+                        <h:selectOneRadio id="genre" value="#{customerManagedBean.entity.genre}"
+                                          required="true" style="-moz-box-shadow: none;  -webkit-box-shadow: none;  box-shadow: none;"
+                                          requiredMessage="Genre is mandatory">
+                            <f:selectItem itemLabel="Male" itemValue="Male" />
+                            <f:selectItem itemLabel="Female" itemValue="Female" />
+                        </h:selectOneRadio>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="col-sm-3 col-sm-offset-4">
+                        <h:commandButton immediate="true"
+                                         action= "#{customerManagedBean.createCustomer()}" 
+                            class="btn btn-primary btn-block"
+                            value="Register"/>
+                    </div>
+                </div> <!-- ./container -->
+            </h:form> <!-- /form -->
+
+        </div> <!-- /.form-group -->
+        <!-- end: content -->
+        <div class="footer">
+            <div class="wrap">
+                <div class="footer-top">
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="footer-nav">
+                            <ul>
+                                <li><a href="comingsoon_list.xhtml">Coming Soon</a></li>
+                                <li><a href="movie_list.xhtml">Showing</a></li>
+                                <li><a href="event_list.html">Event </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="textcontact">
+                            <p>consectetuer adipiscing elit,<br/>
+                                Phone: +84 18001991.<br/>
+                                Email: Support (at) Support@Theater.com<br/>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="call_info">
+                            <p class="txt_3">Call us (Free):</p>
+                            <p class="txt_4">18001991</p>
+                        </div>
+                    </div>
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="social">
+                            <a href="#"><img src="images/fb.png" alt=""/></a>
+                            <a href="#"><img src="images/tw.png" alt=""/></a>
+                            <a href="#"><img src="images/dribble.png" alt=""/></a>
+                            <a href="#"><img src="images/pinterest.png" alt=""/></a>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
+

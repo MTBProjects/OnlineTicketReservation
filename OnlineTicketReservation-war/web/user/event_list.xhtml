@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta content="telephone=no" name="format-detection"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
+        <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="css/default.css"/>
+        <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+        <link href="css/style_1.css?v=1" rel="stylesheet" />
+        <link href="css/gozha-nav.css" rel="stylesheet" />
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src='js/example.js'></script>
+        <script src="js/external/modernizr.custom.js"></script>
+    </h:head>
+    <h:body>
+        <div class="header">
+            <div class="block">
+                <div class="wrap">
+                    <div class="h-logo">
+                        <a href="main.xhtml"><img src="images/logo.png" alt=""/></a>
+                    </div>
+                    <div id="reservation-form">
+                        <c:choose>
+                            <c:when test="${loginSessionBean.isLoggedIn == true}">
+                                <h:form class="group" >
+                                    <h:outputLabel style="font-size: medium;" class="label" value="#{loginSessionBean.email}"/>
+                                    <h:commandButton style="padding-left: 90px;" class="btn-link" value="Logout" action="#{loginSessionBean.endSession()}"/>
+                                </h:form>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="login.xhtml" style="font-size: 20px;" class="btn-link">Login</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="header-top">
+                <div class="wrap">
+                    <div class="nav-wrap">
+                        <ul class="group" id="example-one">
+                            <li><a href="main.xhtml">Home</a></li>
+                            <li><a href="comingsoon_list.xhtml">Coming Soon</a></li>
+                            <li><a href="movie_list.xhtml">Showing</a></li>
+                            <li class="current_page_item"><a href="event_list.xhtml">Event </a></li>
+                            <li><a href="choose_movie.xhtml">Booking</a></li>
+                            <li><a href="register.xhtml">Register</a></li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <section class="container">
+                <div class="overflow-wrapper">
+                    <div class="col-sm-12">
+                        <h2 class="page-heading">Events</h2>
+                        <p:dataScroller value="#{eventService.createEventList()}" var="event" chunkSize="3">
+                            <article class="post post--news">
+                                <h:outputText class="post__title-link" value="#{event.eventTitle}"></h:outputText><br/><br/>
+                                <h:outputText class="post__date" value="Start day: #{event.startDaySt}"></h:outputText><br/>
+                                <h:outputText class="post__date" value="End day:  #{event.endDaySt}"></h:outputText>
+                                <div class="wave-devider"></div>
+                                <h:outputText class="post__title" value="#{event.description}"/>
+                                <div class="devider-huge"></div>
+                            </article>
+                        </p:dataScroller>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="footer">
+            <div class="wrap">
+                <div class="footer-top">
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="footer-nav">
+                            <ul>
+                                <li><a href="comingsoon_list.xhtml">Coming Soon</a></li>
+                                <li><a href="movie_list.xhtml">Showing</a></li>
+                                <li><a href="event_list.html">Event </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="textcontact">
+                            <p>consectetuer adipiscing elit,<br/>
+                                Phone: +84 18001991.<br/>
+                                Email: Support (at) Support@Theater.com<br/>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="call_info">
+                            <p class="txt_3">Call us (Free):</p>
+                            <p class="txt_4">18001991</p>
+                        </div>
+                    </div>
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="social">
+                            <a href="#"><img src="images/fb.png" alt=""/></a>
+                            <a href="#"><img src="images/tw.png" alt=""/></a>
+                            <a href="#"><img src="images/dribble.png" alt=""/></a>
+                            <a href="#"><img src="images/pinterest.png" alt=""/></a>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <script src="js/external/custom.js"></script>
+    </h:body>
+</html>
+

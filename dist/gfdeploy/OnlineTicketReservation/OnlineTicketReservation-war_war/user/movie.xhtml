@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta content="telephone=no" name="format-detection"/>
+        <link  href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="css/default.css"/>
+        <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+        <link href="css/style_1.css?v=1" rel="stylesheet" />
+        <link href="css/gozha-nav.css" rel="stylesheet" />
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/example.js"></script>
+        <script src="js/external/modernizr.custom.js"></script>
+    </h:head>
+    <h:body>
+        <div class="header">
+            <div class="block">
+                <div class="wrap">
+                    <div class="h-logo">
+                        <a href="index.html"><img src="images/logo.png" alt=""/></a>
+                    </div>
+                    <div id="reservation-form">
+                        <c:choose>
+                            <c:when test="${loginSessionBean.isLoggedIn == true}">
+                                <h:form class="group" >
+                                    <h:outputLabel style="font-size: medium;" class="label" value="#{loginSessionBean.email}"/>
+                                    <h:commandButton style="padding-left: 90px;" class="btn-link" value="Logout" action="#{loginSessionBean.endSession()}"/>
+                                </h:form>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="login.xhtml" style="font-size: 20px;" class="btn-link">Login</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="header-top">
+                <div class="wrap">
+                    <div class="nav-wrap">
+                        <ul class="group" id="example-one">
+                            <li><a href="main.xhtml">Home</a></li>
+                            <li><a href="comingsoon_list.xhtml">Coming Soon</a></li>
+                            <li><a href="movie_list.xhtml">Showing</a></li>
+                            <li><a href="event_list.xhtml">Event </a></li>
+                            <li><a href="choose_movie.xhtml">Booking</a></li>
+                            <li><a href="register.xhtml">Register</a></li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <section class="container">
+                <div class="col-sm-12">
+                    <div class="movie">
+                        <h2 class="page-heading">#{movieBean.movie.movieName}</h2>
+
+                        <div class="movie__info">
+                            <div class="col-sm-4 col-md-3 movie-mobile">
+                                <div class="movie__images">
+                                    <img alt="" src="#{movieBean.movie.poster}"/>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-8 col-md-9">
+                                <h:outputText class="movie__time" value="#{movieBean.movie.duration} mins" /><br/><br/>
+
+                                <h:outputLabel value="Show Date: " class="movie__option"  style="font-weight: bold"/><h:outputText value="#{movieBean.movie.showDatest}"/><br/>
+                                <h:outputLabel class="movie__option" value="Category: " style="font-weight: bold"/><h:outputText value="#{movieBean.movie.movieType}"/><br/>
+                                <h:outputLabel class="movie__option" value="Diretor: " style="font-weight: bold"/><h:outputText value="#{movieBean.movie.director}"/><br/>
+                                <h:outputLabel class="movie__option" value="Cast: " style="font-weight: bold"/><h:outputText value="#{movieBean.movie.cast}"/><br/>
+                                <h:outputLabel class="movie__option" value="Status: " style="font-weight: bold"/><h:outputText value="#{movieBean.movie.status}"/><br/>
+
+                                <div class="movie__btns movie__btns--full">
+                                    <a href="choose_movie.xhtml?faces-redirect=true" class="btn btn-md btn--warning">book a ticket for this movie</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <h2 class="page-heading">The plot</h2>
+
+                        <p class="movie__describe">#{movieBean.movie.description}</p>
+                    </div>
+                    <div class="choose-container">
+                        <div class="time-select">
+                            <ui:repeat value="#{showtimeBean.dateList}" var="date" >
+                                <div class="time-select__group">
+                                    <div class="col-sm-3">
+                                        <p class="time-select__place">#{date}</p>
+                                    </div>
+                                    <ul class="col-sm-6 items-wrap">
+                                        <ui:repeat value="#{showtimeBean.getTimeList(date)}" var="time" >
+                                            <li class="time-select__item" date-time = '#{time}'>#{time}</li>
+                                        </ui:repeat>
+                                    </ul>
+                                </div>  
+                            </ui:repeat>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script src="js/external/jquery-migrate-1.2.1.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+        <script src="js/external/jquery.mobile.menu.js"></script>
+        <script src="js/external/jquery.selectbox-0.2.min.js"></script>
+        <script src="js/external/form-element.js"></script>
+        <script src="js/external/form.js"></script>
+        <script src="js/external/custom.js"></script>
+    </h:body>
+</html>
+

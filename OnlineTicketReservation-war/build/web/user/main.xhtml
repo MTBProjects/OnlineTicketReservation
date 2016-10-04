@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
+        <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="css/default.css"/>
+        <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+        <link href="css/gozha-nav.css" rel="stylesheet" />
+        <link href="css/idangerous.swiper.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="css/tsc_tabs.css" type="text/css" media="all" />
+        <script src="js/modernizr.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+        <script src="js/example.js"></script>
+        <script src="js/jquery.flexslider.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                SyntaxHighlighter.all();
+            });
+            $(window).load(function () {
+                $('.flexslider').flexslider({
+                    animation: "slide",
+                    start: function (slider) {
+                        $('body').removeClass('loading');
+                    }
+                });
+            });
+        </script>
+        <link type="text/css" rel="stylesheet" href="http://www.dreamtemplate.com/dreamcodes/tabs/css/tsc_tabs.css" />
+        <script type="text/javascript" src="http://www.dreamtemplate.com/dreamcodes/jquery.min.js"></script>
+    </h:head>
+    <h:body>
+        <div class="header">
+            <div class="block">
+                <div class="wrap">
+                    <div class="h-logo">
+                        <a href="index.html"><img src="images/logo.png" alt=""/></a>
+                    </div>
+                    <div id="reservation-form">
+                        <c:choose>
+                            <c:when test="${loginSessionBean.isLoggedIn == true}">
+                                <h:form class="group" >
+                                    <h:outputLabel style="font-size: medium;" class="label" value="#{loginSessionBean.email}"/>
+                                    <h:commandButton style="padding-left: 90px;" class="btn-link" value="Logout" action="#{loginSessionBean.endSession()}"/>
+                                </h:form>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="login.xhtml" style="font-size: 20px;" class="btn-link">Login</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="header-top">
+                <div class="wrap">
+                    <div class="nav-wrap">
+                        <ul class="group" id="example-one">
+                            <li class="current_page_item"><a href="main.xhtml">Home</a></li>
+                            <li><a href="comingsoon_list.xhtml">Coming Soon</a></li>
+                            <li><a href="movie_list.xhtml">Showing</a></li>
+                            <li><a href="event_list.xhtml">Event </a></li>
+                            <li><a href="choose_movie.xhtml">Booking</a></li>
+                            <li><a href="register.xhtml">Register</a></li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+<!--            <div class="banner">
+                <div class="wrap">
+                    <section class="slider">
+                        <div class="flexslider">
+                            <ul class="slides">
+                                <li>
+                                    <h:graphicImage value="images/banner.jpg" />
+                                </li>
+                                <li>
+                                    <h:graphicImage value="images/banner4.jpg" />
+                                </li>
+                            </ul>
+                        </div>                   
+                    </section>
+                </div>
+            </div>-->
+        </div>
+        <div class="content">
+            <div class="wrap">
+                <div class="content-top">
+                    <div class="listview_1_of_3 images_1_of_3">
+                        <h3>Now Showing</h3>
+                        <div class="content-left">
+                            <div class="listimg listimg_1_of_2">
+                                <img src="http://cdn3-www.comingsoon.net/assets/uploads/gallery/zootopia/c55463169023e916571b0361c592cd6c0f630904.jpg" alt=""/>
+                            </div>
+                            <div class="text list_1_of_2">
+                                <div class="extra-wrap">
+                                    <div class="data">March. 05. 2016</div>
+                                    <a href="movie.xhtml?movieid=15" class="color"><strong>Zootopia</strong></a><br/>
+                                    <span class="text-top">The modern mammal metropolis of Zootopia is a city like no other. Comprised of habitat neighborhoods like ritzy Sahara Square...</span>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="content-left">
+                            <div class="listimg listimg_1_of_2">
+                                <img src="http://cdn2-www.comingsoon.net/assets/uploads/gallery/kung-fu-panda-3/kung-fu-panda-3-poster-full.jpg" alt=""/>
+                            </div>
+                            <div class="text list_1_of_2">
+                                <div class="extra-wrap">
+                                    <div class="data">March. 06. 2016</div>
+                                    <a href="movie.xhtml?movieid=1" class="color"><strong>Kungfu Panda 3</strong></a><br/>
+                                    <span class="text-top"> In 2016, one of the most successful animated franchises in the world returns with its biggest comedy adventure yet, KUNG FU PANDA 3...</span>
+                                </div>
+
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="content-left">
+                            <div class="listimg listimg_1_of_2">
+                                <img src="http://www.flickeringmyth.com/wp-content/uploads/2016/01/gods-of-egypt-600x856.jpg" alt=""/>
+                            </div>
+                            <div class="text list_1_of_2">
+                                <div class="extra-wrap">
+                                    <div class="data">March. 07. 2016</div>
+                                    <a href="movie.xhtml?movieid=3" class="color"><strong>Gods of Egypt</strong></a><br/>
+                                    <span class="text-top">In this spectacular action-adventure inspired by the classic mythology of Egypt...</span>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <a href="movie_list.xhtml" class="link2">See all</a>
+                    </div>				
+                    <div class="listview_1_of_3 images_1_of_3">
+                        <h3>Event</h3>
+                        <div class="middle-list">
+                            <div class="listimg1">
+                                <a href="event_list.xhtml" class="link">FREE TICKETS WITH SAMSUNG GALAXY S7</a>
+                            </div>
+                            <div class="listimg2">
+                                <a href="event_list.xhtml" class="link">CULTURE DAY</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="middle-list">
+                            <div class="listimg1">
+                                <a href="event_list.xhtml" class="link">FROZEN COKE – COOL SUMMER</a>
+                            </div>
+<!--                            <div class="listimg2">
+                                <a href="#" class="link">Win a car from Cinemas</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>	
+                        <div class="middle-list">
+                            <div class="listimg1">
+                                <a href="#" class="link">Free screenings at City Mall</a>
+                            </div>
+                            <div class="listimg2">
+                                <a href="#" class="link">Join the "Superhero Bash" this Saturday</a>
+                            </div>-->
+                            <div class="clear"></div>
+                        </div>
+                        <a href="event_list.xhtml" class="link2">See all</a>
+                    </div>			
+                    <div class="listview_1_of_3 images_1_of_3">
+                        <h3>Coming Soon</h3>
+                        <div class="content-left">
+                            <div class="listimg listimg_1_of_2">
+                                <img src="http://cdn3-www.superherohype.com/assets/uploads/gallery/captain-america-civil-war/civilwar1.jpg" alt=""/>
+                            </div>
+                            <div class="text list_1_of_2">
+                                <div class="extra-wrap1">
+                                    <a href="movie.xhtml?movieid=13" class="link4">Captain America: Civil War</a><br/>
+                                    <span class="color1">USA (2016)</span><br/>
+                                    Genre: <h:outputText class="color2" value="Action, Adventure, Sci-Fi"/><br/>
+                                    <span class="link-top">Actors: <h:outputText class="color2" value="Scarlett Johansson, Chris Evans, Robert Downey Jr" /></span> 
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="content-left">
+                            <div class="listimg listimg_1_of_2">
+                                <img src="http://www.joylantheatre.com/wp-content/uploads/2016/03/batman-vs-superman-poster.jpg" alt=""/>
+                            </div>
+                            <div class="text list_1_of_2">
+                                <div class="extra-wrap1">
+                                    <a href="movie.xhtml?movieid=4" class="link4">Batman vs Superman : Dawn of Justice</a><br/>
+                                    <span class="color1">Usa (2016)</span><br/>
+                                    Genre: <h:outputText class="color2" value="Action, Adventure, Fantasy"/><br/>
+                                    <span class="link-top">Actors: <h:outputText class="color2" value="Henry Cavill, Ben Affleck, Gal Gadot, Jesse Eisenberg"/> </span> 
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                        <div class="content-left">
+                            <div class="listimg listimg_1_of_2">
+                                <img src="http://static1.squarespace.com/static/53323bb4e4b0cebc6a28ffa2/t/56cb7bc1c2ea518471db0d0e/1456176091625/The+Huntsman+Winter's+War?format=750w" alt=""/>
+                            </div>
+                            <div class="text list_1_of_2">
+                                <div class="extra-wrap1">
+                                    <a href="movie.xhtml?movieid=18" class="link4">The Huntsman: Winter's War</a><br/>
+                                    <span class="color1">Usa (2016)</span><br/>
+                                    Genre: <h:outputText class="color2" value="Action, Adventure, Drama"/><br/>
+                                    <span class="link-top">Actors: <h:outputText class="color2" value="Cedric Nicolas-Troyan"/> </span> 
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <a href="comingsoon_list.xhtml" class="link2">See all</a>
+                    </div>		
+                    <div class="clear"></div>		
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="wrap">
+                <div class="footer-top">
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="footer-nav">
+                            <ul>
+                                <li><a href="comingsoon_list.xhtml">Coming Soon</a></li>
+                                <li><a href="movie_list.xhtml">Showing</a></li>
+                                <li><a href="event_list.html">Event </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="textcontact">
+                            <p>consectetuer adipiscing elit,<br/>
+                                Phone: +84 18001991.<br/>
+                                Email: Support (at) Support@Theater.com<br/>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="call_info">
+                            <p class="txt_3">Call us (Free):</p>
+                            <p class="txt_4">18001991</p>
+                        </div>
+                    </div>
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="social">
+                            <a href="#"><img src="images/fb.png" alt=""/></a>
+                            <a href="#"><img src="images/tw.png" alt=""/></a>
+                            <a href="#"><img src="images/dribble.png" alt=""/></a>
+                            <a href="#"><img src="images/pinterest.png" alt=""/></a>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
+

@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" type="text/css" href="#{mainBean.contextPath}/employee/asset/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="#{mainBean.contextPath}/employee/asset/css/plugins/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="#{mainBean.contextPath}/employee/asset/css/plugins/datatables.bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="#{mainBean.contextPath}/employee/asset/css/plugins/animate.min.css"/>
+        <link href="asset/css/style.css" rel="stylesheet"/>
+        <link rel="shortcut icon" href="#{mainBean.contextPath}/employee/asset/img/logomi.png"/>
+
+    </head>
+    <body id="mimin" class="dashboard">
+        <!-- start: Header -->
+        <nav class="navbar navbar-default header navbar-fixed-top">
+            <div class="col-md-12 nav-wrapper">
+                <div class="navbar-header" style="width:100%;">
+                    <a href="index.xhtml" class="navbar-brand"> 
+                        <b>STAFF MANAGEMENT</b>
+                    </a>
+                    <h:form >
+                        <ul class="nav navbar-nav navbar-right user-nav">
+                            <li> 
+                                <h:commandLink value="LOG OUT" 
+                                               action="#{sessionBean.logout()}"/>
+                            </li>
+                        </ul>
+                    </h:form>
+                </div>
+            </div>
+        </nav>
+        <!-- end: Header -->
+        <div class="container-fluid mimin-wrapper">
+
+            <!-- start:Left Menu -->
+           <div id="left-menu">
+                <div class="sub-left-menu scroll">
+                    <ul class="nav nav-list">
+                        <li><div class="left-bg"></div></li>
+                        <li class="user-name text-center">
+                            <span> 
+                                #{sessionBean.accountData.fullname}
+                            </span>
+                        </li>
+                        <li class="active ripple">
+                            <a href="#{mainBean.contextPath}/employee/indexStaffManagement.xhtml"> Main 
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="#{mainBean.contextPath}/employee/customer/mainCustomer.xhtml"> Customers  
+                                <span class="fa-angle-right fa right-arrow text-right"></span> 
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="#{mainBean.contextPath}/employee/movie/mainMovie.xhtml" > Movies
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="#{mainBean.contextPath}/employee/showtimes/mainShowtime.xhtml"> Showtimes
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="#{mainBean.contextPath}/employee/event/mainEvent.xhtml"> Events 
+                                <span class="fa-angle-right fa right-arrow text-right"></span> 
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="#{mainBean.contextPath}/employee/ticket/mainTicket.xhtml"> Ticket 
+                                <span class="fa-angle-right fa right-arrow text-right"></span> 
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div> 
+            <!-- end: Left Menu -->
+
+            <!-- start: Content -->
+            <div id="content">
+                <div class="panel box-shadow-none content-header">
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <h3 class="animated fadeInLeft"> Main pages</h3>
+                            <p class="animated fadeInDown">
+                                Main <span class="fa-angle-right fa"></span> 
+                                Account information <span class="fa-angle-right fa"></span> 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel" style="background-color: transparent">
+                    <h:form id="EditForm" > 
+                        <h:panelGroup id="display"  >
+                            <h:panelGrid columns="2" rendered="#{sessionBean.accountData != null}">
+                                <p:outputLabel for="username" value="Email: " style="font-size: large"/>
+                                <h:outputText id="username" value="#{sessionBean.accountData.email}" 
+                                              style="font-size: large" />
+
+
+                                <p:outputLabel for="accName" value="Customer name: " style="font-size: large" />
+                                <h:outputText id="accName" value="#{sessionBean.accountData.fullname}" 
+                                              style="font-size: large" />
+
+                                <p:outputLabel for="genre" value="Genre: " style="font-size: large"/>
+                                <h:outputText id="genre" value="#{sessionBean.accountData.genre}" 
+                                              style="font-size: large"/>    
+
+                                <p:outputLabel for="address" value="Address: " style="font-size: large" />
+                                <h:outputText id="address" value="#{sessionBean.accountData.address}" 
+                                              style="font-size: large"/>
+
+
+                                <p:outputLabel for="phone" value="Phone: " style="font-size: large" />
+                                <h:outputText id="phone" 
+                                              value="#{sessionBean.accountData.phone}" 
+                                              style="font-size: large"/>
+
+
+                                <p:outputLabel for="dob" value="Birthday: " style="font-size: large"/>
+                                <h:outputText id="dob" style="font-size: large"
+                                              value="#{sessionBean.accountData.dob}" >
+                                    <f:convertDateTime pattern="yyyy-MM-dd" />
+                                </h:outputText>
+                            </h:panelGrid>
+                        </h:panelGroup>
+
+                    </h:form>
+                    <p:separator />
+                </div>  
+            </div>
+
+            <!-- end: content -->
+        </div>
+
+        <!-- start: Javascript -->
+        <script src="#{mainBean.contextPath}/employee/asset/js/jquery.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/jquery.ui.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/bootstrap.min.js"></script>
+
+        <!-- plugins -->
+        <script src="#{mainBean.contextPath}/employee/asset/js/plugins/moment.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/plugins/jquery.datatables.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/plugins/datatables.bootstrap.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/plugins/jquery.nicescroll.js"></script>
+
+        <!-- custom -->
+        <script src="#{mainBean.contextPath}/employee/asset/js/main.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#datatables-example').DataTable();
+            });
+        </script>
+        <!-- end: Javascript -->
+    </body>
+</html>

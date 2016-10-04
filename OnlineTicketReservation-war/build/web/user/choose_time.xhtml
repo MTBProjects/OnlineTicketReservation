@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta content="telephone=no" name="format-detection"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
+        <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="css/default.css"/>
+        <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+        <link href="css/style_1.css?v=1" rel="stylesheet" />
+        <link href="css/gozha-nav.css" rel="stylesheet" />
+        <link href="css/idangerous.swiper.css" rel="stylesheet" />
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src='js/example.js'></script>
+        <script src="js/external/modernizr.custom.js"></script>
+    </h:head>
+    <h:body>
+        <div class="header">
+            <div class="block">
+                <div class="wrap">
+                    <div class="h-logo">
+                        <a href="main.xhtml"><img src="images/logo.png" alt=""/></a>
+                    </div>
+                    <div id="reservation-form">
+                        <c:choose>
+                            <c:when test="${loginSessionBean.isLoggedIn == true}">
+                                <h:form class="group" >
+                                    <h:outputLabel style="font-size: medium;" class="label" value="#{loginSessionBean.email}"/>
+                                    <h:commandButton style="padding-left: 90px;" class="btn-link" value="Logout" action="#{loginSessionBean.endSession()}"/>
+                                </h:form>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="login.xhtml" style="font-size: 20px;" class="btn-link">Login</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="header-top">
+                <div class="wrap">
+                    <div class="nav-wrap">
+                        <ul class="group" id="example-one">
+                            <li><a href="main.xhtml">Home</a></li>
+                            <li><a href="comingsoon_list.xhtml">Coming Soon</a></li>
+                            <li><a href="movie_list.xhtml">Showing</a></li>
+                            <li><a href="event_list.xhtml">Event </a></li>
+                            <li class="current_page_item"><a href="choose_movie.xhtml">Booking</a></li>
+                            <li><a href="register.xhtml">Register</a></li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <section class="container">
+                <div class="order-container">
+                    <div class="order">
+                        <img class="order__images" alt='' src="images/tickets.png"/>
+                        <p class="order__title">Book a ticket <br/><span class="order__descript">and have fun movie time</span></p>
+                    </div>
+                </div>
+            </section>
+            <div class="swiper-container">
+                <div class="swiper-wrapper"/>
+            </div>
+        </div>
+        <section class="container">
+            <div class="col-sm-12">
+                <h2 class="page-heading">Date</h2>
+
+                <div class="choose-container choose-container--short">
+                    <div class="datepicker">
+                        <span class="datepicker__marker"><i class="fa fa-calendar"></i>Date</span>
+                        <input type="text" id="datepicker" value='03/10/2014' class="datepicker__input"/>
+                    </div>
+                </div>
+
+                <h2 class="page-heading">Pick time</h2>
+
+                <div class="time-select time-select--wide">
+                    <ui:repeat value="#{showtimeBean.dateList}" var="date" >
+                        <div class="time-select__group">
+                            <div class="col-sm-3">
+                                <p class="time-select__place">#{date}</p>
+                            </div>
+                            <ul class="col-sm-6 items-wrap">
+                                <ui:repeat value="#{showtimeBean.getTimeList(date)}" var="time" >
+                                    <li class="time-select__item" value="#{time}">#{time}</li>
+                                </ui:repeat>
+                            </ul>
+                        </div>  
+                    </ui:repeat>
+                </div>
+                <div class="choose-indector choose-indector--time">
+                    <strong>Choosen: </strong>
+                    <span class="choosen-area" id="time"></span>
+                </div>
+            </div>
+        </section>
+        <div class="clearfix"></div>
+
+        <h:form id="film-and-time"  >
+            <h:inputHidden id="choosen-date" class="choosen-date" value="#{showtimeBean.day}"/>
+            <h:inputHidden class="choosen-time" id="choosen-time" value="#{showtimeBean.stime}"/>
+            <div class="booking-pagination">
+                <h:commandLink action="#{showtimeBean.submit()}" onclick="getValue()">
+                    <span class="arrow__text arrow--next">next step</span>
+                    <span class="arrow__info">choose seat</span>
+                </h:commandLink>
+            </div>
+        </h:form>
+
+        <div class="footer">
+            <div class="wrap">
+                <div class="footer-top">
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="footer-nav">
+                            <ul>
+                                <li><a href="comingsoon_list.xhtml">Coming Soon</a></li>
+                                <li><a href="movie_list.xhtml">Showing</a></li>
+                                <li><a href="event_list.html">Event </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="textcontact">
+                            <p>consectetuer adipiscing elit,<br/>
+                                Phone: +84 18001991.<br/>
+                                Email: Support (at) Support@Theater.com<br/>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="call_info">
+                            <p class="txt_3">Call us (Free):</p>
+                            <p class="txt_4">18001991</p>
+                        </div>
+                    </div>
+                    <div class="col_1_of_4 span_1_of_4">
+                        <div class="social">
+                            <a href="#"><img src="images/fb.png" alt=""/></a>
+                            <a href="#"><img src="images/tw.png" alt=""/></a>
+                            <a href="#"><img src="images/dribble.png" alt=""/></a>
+                            <a href="#"><img src="images/pinterest.png" alt=""/></a>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script src="js/external/jquery-migrate-1.2.1.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+        <script src="js/external/jquery.mobile.menu.js"></script>
+        <script src="js/external/jquery.selectbox-0.2.min.js"></script>
+        <script src="js/external/idangerous.swiper.min.js"></script>
+        <script src="js/external/form-element.js"></script>
+        <script src="js/external/form.js"></script>
+        <script src="js/external/custom.js"></script>
+        <script type="text/javascript">
+                    $(document).ready(function () {
+                        init_BookingOne();
+                    });
+                    var time;
+                    $(".time-select__item").click(function () {
+                        time = $(this).text();
+                        console.log(time);
+                        document.getElementById("time").innerHTML = time;
+                    });
+                    function getValue()
+                    {
+                        document.getElementById("film-and-time:choosen-time").value = time;
+                    }
+        </script>
+    </h:body>
+</html>
+

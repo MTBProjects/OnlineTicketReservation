@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="utf-8"/>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" type="text/css" href="#{mainBean.contextPath}/employee/asset/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="#{mainBean.contextPath}/employee/asset/css/plugins/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="#{mainBean.contextPath}/employee/asset/css/plugins/datatables.bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="#{mainBean.contextPath}/employee/asset/css/plugins/animate.min.css"/>
+        <link href="#{mainBean.contextPath}/employee/asset/css/style.css" rel="stylesheet"/>
+        <link rel="shortcut icon" href="#{mainBean.contextPath}/employee/asset/img/logomi.png"/>
+    </h:head>
+    <h:body id="mimin" class="dashboard">
+        <!-- start: Header -->
+        <nav class="navbar navbar-default header navbar-fixed-top">
+            <div class="col-md-12 nav-wrapper">
+                <div class="navbar-header" style="width:100%;">
+                    <a href="index.xhtml" class="navbar-brand"> 
+                        <b>STAFF MANAGEMENT</b>
+                    </a>
+                    <h:form >
+                        <ul class="nav navbar-nav navbar-right user-nav">
+                            <li> 
+                                <h:commandLink value="LOG OUT" 
+                                               action="#{sessionBean.logout()}"/>
+                            </li>
+                        </ul>
+                    </h:form>
+                </div>
+            </div>
+        </nav>
+        <!-- end: Header -->
+        <div class="container-fluid mimin-wrapper">
+
+            <!-- start:Left Menu -->
+            <div id="left-menu">
+                <div class="sub-left-menu scroll">
+                    <ul class="nav nav-list">
+                        <li><div class="left-bg"></div></li>
+                        <li class="user-name text-center">
+                            <span> 
+                                #{sessionBean.accountData.fullname}
+                            </span>
+                        </li>
+                        <li class="active ripple">
+                            <a href="#{mainBean.contextPath}/employee/indexStaffManagement.xhtml"> Main 
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="#{mainBean.contextPath}/employee/customer/mainCustomer.xhtml"> Customers  
+                                <span class="fa-angle-right fa right-arrow text-right"></span> 
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="#{mainBean.contextPath}/employee/movie/mainMovie.xhtml" > Movies
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="#{mainBean.contextPath}/employee/showtimes/mainShowtime.xhtml"> Showtimes
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="#{mainBean.contextPath}/employee/event/mainEvent.xhtml"> Events 
+                                <span class="fa-angle-right fa right-arrow text-right"></span> 
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="#{mainBean.contextPath}/employee/ticket/mainTicket.xhtml"> Ticket 
+                                <span class="fa-angle-right fa right-arrow text-right"></span> 
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div> 
+            <!-- end: Left Menu -->
+
+            <!-- start: Content -->
+            <div id="content">
+                <div class="panel box-shadow-none content-header">
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <h3 class="animated fadeInLeft">Movie Tables</h3>
+                            <p class="animated fadeInDown">
+                                Main <span class="fa-angle-right fa"></span> 
+                                Movie Tables <span class="fa-angle-right fa"></span>
+                                Edit movie
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <h:form id="EditForm"> 
+                    <h:panelGroup id="display">
+                        <h:inputHidden id="mId" value="#{movieBean.entity.movieId}"  />
+                        <h:panelGrid columns="3" rendered="#{movieBean.entity != null}" >
+                            <p:outputLabel for="mName" value="Movie Name: " />
+                            <p:inputText id="mName" value="#{movieBean.entity.movieName}" 
+                                         required="true" size="60"
+                                         requiredMessage="This field should not be empty" >
+                            </p:inputText>
+                            <p:message for="mName" style="color: red;"/> 
+
+                            <p:outputLabel for="type" value="Movie type: " />
+                            <h:selectOneMenu id="type" value="#{movieBean.entity.movieType}">
+                                <f:selectItem itemLabel="Action" itemValue="Action" />
+                                <f:selectItem itemLabel="Adventure" itemValue="Adventure" />
+                                <f:selectItem itemLabel="Comedy" itemValue="Comedy" />
+                                <f:selectItem itemLabel="Drama" itemValue="Drama" />
+                                <f:selectItem itemLabel="Fantasy" itemValue="Fantasy" />
+                                <f:selectItem itemLabel="Historical" itemValue="Historical" />
+                                <f:selectItem itemLabel="Horror" itemValue="Horror" />
+                            </h:selectOneMenu>
+                            <p:message for="type" style="color: red;"/>                                         
+
+                            <p:outputLabel for="years" value="Year: " />
+                            <p:inputText id="years" value="#{movieBean.entity.year}" 
+                                         maxlength="4" required="true" size="5"
+                                         requiredMessage="This field should not be empty"/>
+                            <p:message for="years" style="color: red;"/>
+
+                            <p:outputLabel for="desc" value="Description: " />
+                            <p:inputTextarea rows="10" cols="60" 
+                                             id="desc" value="#{movieBean.entity.description}" 
+                                             required="true" 
+                                             requiredMessage="This field should not be empty"/>
+                            <p:message for="desc" style="color: red;"/>
+
+                            <p:outputLabel for="dir" value="Director: " />
+                            <p:inputText id="dir" value="#{movieBean.entity.director}"
+                                         required="true" size="60"
+                                         requiredMessage="This field should not be empty"/>
+                            <p:message for="dir" style="color: red;"/>
+
+                            <p:outputLabel for="cast" value="Cast: " />
+                            <p:inputText id="cast" value="#{movieBean.entity.cast}" 
+                                         required="true" size="60"
+                                         requiredMessage="This field should not be empty"/>
+                            <p:message for="cast" style="color: red;"/>
+
+                            <p:outputLabel for="sDate" value="Start day: " />
+                            <p:calendar id="sDate" pattern="yyyy-MM-dd" readonlyInput="true" navigator="true"
+                                        value="#{movieBean.entity.showDate}"  required="true" 
+                                        requiredMessage="This field should not be empty"/>
+                            <p:message for="sDate" style="color: red;"/>
+
+                            <p:outputLabel for="duration" value="Duration: " />
+                            <p:inputText id="duration" value="#{movieBean.entity.duration}" 
+                                         required="true" size="4"
+                                         requiredMessage="This field should not be empty"/>
+                            <p:message for="duration" style="color: red;"/>
+
+                            <p:outputLabel for="stt" value="Movie status: " />
+                            <h:selectOneMenu id="stt" value="#{movieBean.entity.status}">
+                                <f:selectItem itemLabel="Showing" itemValue="Showing" />
+                                <f:selectItem itemLabel="Coming soon" itemValue="Coming soon" />
+                            </h:selectOneMenu>
+                            <p:message for="stt" style="color: red;"/>
+
+                            <p:outputLabel for="pster" value="Movie poster " />
+                            <p:inputText id="pster" value="#{movieBean.entity.poster}"
+                                         required="true" size="60"
+                                         requiredMessage="This field should not be empty"/>
+                            <p:message for="pster" style="color: red;"/>
+                        </h:panelGrid>
+                        <h:panelGroup> 
+                            <h:panelGrid columns="2">
+                                <h:commandButton action="#{movieBean.updateMovie()}" 
+                                                 value="Save"
+                                                 class="btn btn-primary"                                             />
+                                <h:link class="btn btn-primary" 
+                                        outcome="/employee/movie/mainMovie?faces-redirect=true" value="Cancel" />
+                            </h:panelGrid>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:form>
+            </div>
+            <!-- end: content -->
+        </div>
+
+        <!-- start: Javascript -->
+        <script src="#{mainBean.contextPath}/employee/asset/js/jquery.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/jquery.ui.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/bootstrap.min.js"></script>
+
+        <!-- plugins -->
+        <script src="#{mainBean.contextPath}/employee/asset/js/plugins/moment.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/plugins/jquery.datatables.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/plugins/datatables.bootstrap.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/plugins/jquery.nicescroll.js"></script>
+
+        <!-- custom -->
+        <script src="#{mainBean.contextPath}/employee/asset/js/main.js"></script>
+
+        <!--disable previous day-->
+
+        <!-- end: Javascript -->
+    </h:body>
+</html>

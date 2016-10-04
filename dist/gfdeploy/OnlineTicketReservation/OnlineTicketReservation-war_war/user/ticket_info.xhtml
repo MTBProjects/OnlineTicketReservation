@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta content="telephone=no" name="format-detection"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
+        <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="css/default.css"/>
+        <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+        <link href="css/style_1.css?v=1" rel="stylesheet" />
+        <link href="css/gozha-nav.css" rel="stylesheet" />
+        <link href="css/idangerous.swiper.css" rel="stylesheet" />
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src='js/example.js'></script>
+        <script src="js/external/modernizr.custom.js"></script>
+    </h:head>
+    <h:body>
+        <div class="wrapper place-wrapper">
+            <div class="header">
+                <div class="block">
+                    <div class="wrap">
+                        <div class="h-logo">
+                            <a href="main.xhtml"><img src="images/logo.png" alt=""/></a>
+                        </div>
+                        <div id="reservation-form">
+                            <c:choose>
+                                <c:when test="${loginSessionBean.isLoggedIn == true}">
+                                    <h:form class="group" >
+                                        <h:outputLabel style="font-size: medium;" class="label" value="#{loginSessionBean.email}"/>
+                                        <h:commandButton style="padding-left: 90px;" class="btn-link" value="Logout" action="#{loginSessionBean.endSession()}"/>
+                                    </h:form>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="login.xhtml" style="font-size: 20px;" class="btn-link">Login</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="header-top">
+                    <div class="wrap">
+                        <div class="nav-wrap">
+                            <ul class="group" id="example-one">
+                                <li><a href="main.xhtml">Home</a></li>
+                                <li><a href="comingsoon_list.xhtml">Coming Soon</a></li>
+                                <li><a href="movie_list.xhtml">Showing</a></li>
+                                <li><a href="event_list.xhtml">Event </a></li>
+                                <li class="current_page_item"><a href="choose_movie.xhtml">Booking</a></li>
+                                <li><a href="register.xhtml">Register</a></li>
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <section class="container">
+                <div class="order-container">
+                    <div class="order">
+                        <img class="order__images" alt='' src="images/tickets.png"/>
+                        <p class="order__title">Thank you <br/><span class="order__descript">you have successfully purchased tickets</span></p>
+                    </div>
+
+                    <div class="ticket">
+                        <div class="ticket-position">
+                            <div class="ticket__indecator indecator--pre"><div class="indecator-text pre--text">online ticket</div> </div>
+                            <div class="ticket__inner">
+                                <div class="ticket-secondary">
+                                    <span class="ticket__item">Ticket number <strong class="ticket__number">#{ticketBean.entity.ticketId}</strong></span>
+                                    <span class="ticket__item ticket__date">#{loginSessionBean.email}</span>
+                                    <span class="ticket__item ticket__date">#{ticketBean.curdate}</span>
+                                    <span class="ticket__item">Cinema: <span class="ticket__cinema">Cinema World</span></span>
+                                    <span class="ticket__item">Hall: <span class="ticket__hall">#{ticketBean.entity.showtimesId.screenId.screenName}</span></span>
+                                    <span class="ticket__item ticket__price">price: <strong class="ticket__cost">#{ticketBean.entity.total}</strong></span>
+                                </div>
+
+                                <div class="ticket-primery">
+                                    <span class="ticket__item ticket__item--primery ticket__film">Film<br/><strong class="ticket__movie">#{ticketBean.entity.showtimesId.movieId.movieName}</strong></span>
+                                    <span class="ticket__item ticket__item--primery">Sits: 
+                                        <c:forEach items="#{ticketBean.seatList}" var="seat">
+                                            <span class="ticket__place">#{seat}</span>
+                                        </c:forEach>
+                                    </span>
+                                </div>
+
+                            </div>
+                            <div class="ticket__indecator indecator--post"><div class="indecator-text post--text">online ticket</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="clearfix"></div>
+        </div>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script src="js/external/jquery-migrate-1.2.1.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+        <script src="js/external/jquery.mobile.menu.js"></script>
+        <script src="js/external/jquery.selectbox-0.2.min.js"></script>
+        <script src="js/external/form-element.js"></script>
+        <script src="js/external/form.js"></script>
+        <script src="js/external/custom.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.top-scroll').parent().find('.top-scroll').remove();
+            });
+        </script>
+    </h:body>
+</html>
+

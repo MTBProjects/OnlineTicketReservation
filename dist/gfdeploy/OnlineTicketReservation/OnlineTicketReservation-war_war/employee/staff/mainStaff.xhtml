@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="description" content="Miminium Admin Template v.1"/>
+        <meta name="author" content="Isna Nur Azis"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" type="text/css" href="#{mainBean.contextPath}/employee/asset/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="#{mainBean.contextPath}/employee/asset/css/plugins/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="#{mainBean.contextPath}/employee/asset/css/plugins/datatables.bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="#{mainBean.contextPath}/employee/asset/css/plugins/animate.min.css"/>
+        <link href="#{mainBean.contextPath}/employee/asset/css/style.css" rel="stylesheet"/>
+        <link rel="shortcut icon" href="#{mainBean.contextPath}/employee/asset/img/logomi.png"/>
+    </h:head>
+    <h:body id="mimin" class="dashboard">
+        <!-- start: Header -->
+        <nav class="navbar navbar-default header navbar-fixed-top">
+            <div class="col-md-12 nav-wrapper">
+                <div class="navbar-header" style="width:100%;">
+                    <a href="index.xhtml" class="navbar-brand"> 
+                        <b>ADMIN MANAGEMENT</b>
+                    </a>
+                    <h:form >
+                        <ul class="nav navbar-nav navbar-right user-nav">
+                            <li> 
+                                <h:commandLink value="LOG OUT" 
+                                               action="#{sessionBean.logout()}"/>
+                            </li>
+                        </ul>
+                    </h:form>
+                </div>
+            </div>
+        </nav>
+        <!-- end: Header -->
+
+        <div class="container-fluid mimin-wrapper">
+
+            <!-- start:Left Menu -->
+            <div id="left-menu">
+                <div class="sub-left-menu scroll">
+                    <ul class="nav nav-list">
+                        <li><div class="left-bg"></div></li>
+
+                        <li class="user-name text-center">
+                            <span> 
+                                Welcome #{sessionBean.accountData.fullname}
+                            </span>
+                        </li>
+                        <li class="active ripple">
+                            <a href="#{mainBean.contextPath}/employee/indexAdminManagement.xhtml"> Main 
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="#{mainBean.contextPath}/employee/staff/mainStaff.xhtml"> Staffs  
+                                <span class="fa-angle-right fa right-arrow text-right"></span> 
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>  
+            <!-- end: Left Menu -->
+
+            <!-- start: Content -->
+            <div id="content">
+                <div class="panel box-shadow-none content-header">
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <h3 class="animated fadeInLeft">Staff Tables</h3>
+                            <p class="animated fadeInDown">
+                                Main <span class="fa-angle-right fa"></span> Staff Tables
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 top-20 padding-0">
+                    <div class="col-md-12">
+                        <div class="panel">
+                            <h:link id="CreateNewStaff"
+                                    value ="Create new staff"
+                                    outcome="/employee/staff/createStaff"
+                                    class="btn btn-info btn-lg" />
+                            <div class="panel-heading"><h3>Data Tables</h3></div>
+                            <div class="panel-body">
+                                <div class="responsive-table">
+                                    <h:dataTable id="datatables-example" 
+                                                 class="table table-striped table-bordered" 
+                                                 width="100%" 
+                                                 cellspacing="0" 
+                                                 var="account" 
+                                                 value="#{accBean.allAccount}">
+                                        <p:column>
+                                            <f:facet name="header">Account id</f:facet> 
+                                            <h:form>
+                                                <p:commandLink value="#{account.accountId}" 
+                                                               action="#{accBean.selectedAccount(account.accountId)}">
+                                                </p:commandLink>
+                                            </h:form>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">Username</f:facet>
+                                            <h:outputText value="#{account.username}" />
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">Password</f:facet> 
+                                            <h:outputText value="#{account.password}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">Full name</f:facet>
+                                            <h:outputText value="#{account.fullname}" />
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">Genre</f:facet> 
+                                            <h:outputText value="#{account.genre}" />
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">Email</f:facet> 
+                                            <h:outputText value="#{account.email}" />
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">Address</f:facet> 
+                                            <h:outputText value="#{account.address}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">Phone</f:facet> 
+                                            <h:outputText value="#{account.phone}" />
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">Date of birth</f:facet> 
+                                            <h:outputText value="#{account.dob}">
+                                                <f:convertDateTime pattern="dd-MM-yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:column>
+                                            <f:facet name="header">Last login</f:facet> 
+                                            <h:outputText value="#{account.lastDay}">
+                                                <f:convertDateTime pattern="dd-MM-yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">Status</f:facet> 
+                                            <h:outputText value="#{account.status}" />
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">Permission</f:facet> 
+                                            <h:outputText value="#{account.roleId.roleType}" />
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header"></f:facet> 
+                                            <p:commandButton actionListener="#{accBean.deleteAccount(account)}" 
+                                                             icon="ui-icon-trash"
+                                                             update="@all"/>
+                                        </p:column>
+                                    </h:dataTable>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+            <!-- end: content -->
+        </div>
+
+        <!-- start: Javascript -->
+        <script src="#{mainBean.contextPath}/employee/asset/js/jquery.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/jquery.ui.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/bootstrap.min.js"></script>
+
+        <!-- plugins -->
+        <script src="#{mainBean.contextPath}/employee/asset/js/plugins/moment.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/plugins/jquery.datatables.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/plugins/datatables.bootstrap.min.js"></script>
+        <script src="#{mainBean.contextPath}/employee/asset/js/plugins/jquery.nicescroll.js"></script>
+
+        <!-- custom -->
+        <script src="#{mainBean.contextPath}/employee/asset/js/main.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#datatables-example').DataTable();
+            });
+        </script>
+        <!-- end: Javascript -->
+    </h:body>
+</html>
